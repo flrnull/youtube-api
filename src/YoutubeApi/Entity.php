@@ -19,6 +19,8 @@ abstract class Entity {
     protected $_categoryHash;
     protected $_order;
     protected $_type;
+    protected $_fromDate;
+    protected $_limit;
 
     public function __construct(Engine $engine) {
         $this->_engine = $engine;
@@ -52,6 +54,24 @@ abstract class Entity {
     }
 
     /**
+     * @param string $fromDate
+     * @return Entity
+     */
+    public function fromDate($fromDate) {
+        $this->_fromDate = $fromDate;
+        return $this;
+    }
+
+    /**
+     * @param int $limit
+     * @return Entity
+     */
+    public function limit($limit) {
+        $this->_limit = $limit;
+        return $this;
+    }
+
+    /**
      * @return array
      */
     public function getList() {
@@ -62,6 +82,8 @@ abstract class Entity {
             ->category($this->_categoryHash)
             ->order($this->_order)
             ->type($this->_type)
+            ->fromDate($this->_fromDate)
+            ->maxResults($this->_limit)
             ->execute();
     }
 

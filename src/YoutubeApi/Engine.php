@@ -43,7 +43,12 @@ class Engine {
     /**
      * @var int
      */
-    protected $_maxResults = 50;
+    protected $_maxResults = 10;
+
+    /**
+     * @var string
+     */
+    protected $_fromDate;
 
     /**
      * @var string
@@ -77,7 +82,11 @@ class Engine {
         if (!is_null($this->_type)) {
             $apiUrl .= '&type=' . $this->_type;
         }
+        if (!is_null($this->_fromDate)) {
+            $apiUrl .= '&publishedAfter=' . date('Y-m-d\TH:i:s\Z', strtotime($this->_fromDate));
+        }
         $apiUrl .= "&key=" . $this->_apiKey;
+
         $this->_cleanUp();
         return json_decode(file_get_contents($apiUrl), true);
     }
@@ -133,6 +142,15 @@ class Engine {
      */
     public function maxResults($max) {
         $this->_maxResults = $max;
+        return $this;
+    }
+
+    /**
+     * @param string $fromDate
+     * @return Engine
+     */
+    public function fromDate($fromDate) {
+        $this->_fromDate = $fromDate;
         return $this;
     }
 
