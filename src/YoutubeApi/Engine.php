@@ -56,6 +56,11 @@ class Engine {
     protected $_type;
 
     /**
+     * @var string
+     */
+    protected $_page;
+
+    /**
      * @param string $apiKey
      */
     public function __construct($apiKey) {
@@ -84,6 +89,9 @@ class Engine {
         }
         if (!is_null($this->_fromDate)) {
             $apiUrl .= '&publishedAfter=' . date('Y-m-d\TH:i:s\Z', strtotime($this->_fromDate));
+        }
+        if (!is_null($this->_page)) {
+            $apiUrl .= '&pageToken=' . $this->_page;
         }
         $apiUrl .= "&key=" . $this->_apiKey;
 
@@ -160,6 +168,15 @@ class Engine {
      */
     public function type($type) {
         $this->_type = $type;
+        return $this;
+    }
+
+    /**
+     * @param string $page
+     * @return Engine
+     */
+    public function page($page) {
+        $this->_page = $page;
         return $this;
     }
 

@@ -21,6 +21,7 @@ abstract class Entity {
     protected $_type;
     protected $_fromDate;
     protected $_limit;
+    protected $_page;
 
     public function __construct(Engine $engine) {
         $this->_engine = $engine;
@@ -72,6 +73,15 @@ abstract class Entity {
     }
 
     /**
+     * @param string $page
+     * @return Entity
+     */
+    public function page($page) {
+        $this->_page = $page;
+        return $this;
+    }
+
+    /**
      * @return array
      */
     public function getList() {
@@ -84,6 +94,7 @@ abstract class Entity {
             ->type($this->_type)
             ->fromDate($this->_fromDate)
             ->maxResults($this->_limit)
+            ->page($this->_page)
             ->execute();
     }
 
