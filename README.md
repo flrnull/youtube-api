@@ -15,17 +15,18 @@ $page = 'JqwdgHdq'; // Here you can specify pageToken from previous API result
 
 $apiSearch = new YoutubeApi\Search($apiKey);
 $videosData = $apiSearch->videos()
-                        ->category($categoryId)
-                        ->order('viewCount')
-                        ->fromDate($period)
-                        ->limit($limit)
-                        ->page($page)
-                        ->getList();
+            ->category($categoryId)
+            ->order('viewCount')
+            ->fromDate($period)
+            ->limit($limit)
+            ->page($page)
+            ->getList();
 ```
 
 Install
 ------
 
+composer.json
 ```
 "require": {
         "flrnull/youtube-api": "dev-master",
